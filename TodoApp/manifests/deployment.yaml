@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: todoapp
-          image: mikkolep/todoapp
+          image: mikkolep/todoapp:v2
