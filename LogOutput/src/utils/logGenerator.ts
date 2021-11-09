@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const logs: string[] = [];
 
-const generateLog = () => {
+export const generateLog = () => {
   const date = new Date();
   const log = date.toISOString() + ": " + uuidv4();
 
@@ -12,4 +12,6 @@ const generateLog = () => {
   setTimeout(generateLog, 5000);
 };
 
-generateLog();
+export const getLatestLog = () => {
+  return logs.at(-1);
+};
