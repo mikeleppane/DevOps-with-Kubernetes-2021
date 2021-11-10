@@ -18,18 +18,28 @@ const checkFileExists = async (fileName: string): Promise<boolean> => {
   return false;
 };
 
-const readTimestampFromFile = async (fileName: string) => {
+// const readTimestampFromFile = async (fileName: string) => {
+//   if (await checkFileExists(fileName)) {
+//     const data = await readFile(fileName);
+//     return data.toString().trim().split("\n").at(-1);
+//   }
+//   throw new Error(`${fileName} does not exist`);
+// };
+
+const getPingPongRequests = async (fileName: string) => {
   if (await checkFileExists(fileName)) {
     const data = await readFile(fileName);
-    return data.toString().trim().split("\n").at(-1);
+    return data.toString().trim();
   }
   throw new Error(`${fileName} does not exist`);
 };
 
 export const generateLog = async () => {
   try {
-    const timestamp = await readTimestampFromFile(filePath);
-    const log = timestamp + ": " + uuidv4();
+    const pingPongLog = await getPingPongRequests(filePath);
+    const date = new Date();
+    const timestamp = date.toISOString();
+    const log = timestamp + ": " + uuidv4() + "\n" + pingPongLog;
     console.log(log);
     return log;
   } catch (e) {

@@ -28,5 +28,3 @@ const saveTimestampToFile = async (timestamp: string) => {
     );
   }
 };
-
-generateTimeStamp();

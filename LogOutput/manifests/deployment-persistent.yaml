@@ -14,15 +14,18 @@ spec:
     spec:
       volumes:
         - name: shared-logs
-          emptyDir: { }
+          persistentVolumeClaim:
+            claimName: log-output-claim
       containers:
         - name: logwatcher
           image: mikkolep/logwatcher:v3
+          imagePullPolicy: Always
           volumeMounts:
             - name: shared-logs
               mountPath: /usr/src/app/files
-        - name: timestampgenerator
-          image: mikkolep/timestampgenerator:v2
-          volumeMounts:
-            - name: shared-logs
-              mountPath: /usr/src/app/files
+        #        - name: timestampgenerator
+        #          image: mikkolep/timestampgenerator:v2
+        #          imagePullPolicy: Always
+        #          volumeMounts:
+        #            - name: shared-logs
+        #              mountPath: /usr/src/app/files

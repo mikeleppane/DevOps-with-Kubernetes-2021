@@ -8,7 +8,10 @@ statusRouter.get("/", (_req, res) => {
     .then((response) => {
       res.status(200).send(response);
     })
-    .catch((e) => console.error(e));
+    .catch((e) => {
+      console.error(e);
+      res.status(500).json({ error: e.message });
+    });
 });
 
 export default statusRouter;

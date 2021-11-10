@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingpong-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong
+  template:
+    metadata:
+      labels:
+        app: pingpong
+    spec:
+      volumes:
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: log-output-claim
+      containers:
+        - name: pingpong
+          image: mikkolep/pingpong:v1
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: shared-logs
+              mountPath: /usr/src/app/files
