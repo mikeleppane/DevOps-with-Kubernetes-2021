@@ -15,3 +15,4 @@ spec:
       containers:
         - name: pingpong
           image: mikkolep/pingpong:v1
+          imagePullPolicy: Always
