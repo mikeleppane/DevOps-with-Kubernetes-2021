@@ -10,6 +10,13 @@ spec:
             pathType: Prefix
             backend:
               service:
+                name: todoapp-frontend-svc
+                port:
+                  number: 3001
+          - path: /todos
+            pathType: Prefix
+            backend:
+              service:
                 name: todoapp-svc
                 port:
                   number: 5001

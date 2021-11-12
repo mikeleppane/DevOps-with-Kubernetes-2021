@@ -24,6 +24,7 @@ export const getImage = async () => {
     }
     const { ok, problem, data } = await api.get("");
     if (ok) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       data.pipe(fs.createWriteStream(imagePath));
       console.log(`Image ${imagePath} created`);

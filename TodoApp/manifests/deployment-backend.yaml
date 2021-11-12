@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-backend-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-backend: todoapp-backend
+  template:
+    metadata:
+      labels:
+        app-backend: todoapp-backend
+    spec:
+      containers:
+        - name: todoapp-backend
+          image: mikkolep/todoapp-backend:v1
+          imagePullPolicy: Always
