@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "apisauce";
 
 const api = create({
-  baseURL: "http://pingpong-service",
+  baseURL: "http://pingpong-service.log-output",
   timeout: 5000,
 });
 
@@ -13,7 +13,7 @@ const getPingPongs = async () => {
     return response.data;
   }
   if (response.problem) {
-    console.log("getPingPongs> problem: ", response.problem);
+    console.error("getPingPongs> problem: ", response.problem);
     return;
   }
 };
@@ -54,7 +54,11 @@ export const generateLog = async () => {
   if (pingpongStatus) {
     const date = new Date();
     const timestamp = date.toISOString();
-    const log = timestamp + ": " + uuidv4() + "\n" + pingpongStatus;
+    const log = `
+    <p>${process.env.MESSAGE}</p>
+    <p>${timestamp}: ${uuidv4()}</p>
+    <p>${pingpongStatus}</p>
+    `;
     console.log(log);
     return log;
   }
