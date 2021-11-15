@@ -1,0 +1,10 @@
+# PostgreSQL StatefulSet ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-db-config
+  namespace: log-output
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  PGDATA: /data/pgdata

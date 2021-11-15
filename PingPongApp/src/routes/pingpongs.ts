@@ -1,11 +1,17 @@
 import express from "express";
-import { getPingPongs } from "../utils/requestCounter";
+import { Pingpong } from "../database/models/pingpong";
 
 const pingpongRouter = express.Router();
 
 pingpongRouter.get("/", (_req, res) => {
-  const data = "Ping / Pong: " + getPingPongs() + "\n";
-  res.status(200).send(data);
+  Pingpong.findByPk(1)
+    .then((pingpong) => {
+      if (pingpong) {
+        const data = "Ping / Pong: " + pingpong.count + "\n";
+        res.status(200).send(data);
+      }
+    })
+    .catch((error) => console.error(error));
 });
 
 export default pingpongRouter;

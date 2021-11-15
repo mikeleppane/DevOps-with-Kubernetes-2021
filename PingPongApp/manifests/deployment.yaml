@@ -17,3 +17,12 @@ spec:
         - name: pingpong
           image: mikkolep/pingpong:v1
           imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: postgres-db-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: POSTGRES_PASSWORD
