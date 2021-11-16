@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-todo
+  namespace: todoapp
+spec:
+  schedule: "0 6 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: daily-todo
+              image: mikkolep/daily-todo:v1
+              imagePullPolicy: IfNotPresent
+          restartPolicy: Never
