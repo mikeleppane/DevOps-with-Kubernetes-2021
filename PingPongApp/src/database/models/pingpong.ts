@@ -37,4 +37,7 @@ Pingpong.init(
 Pingpong.sync()
   .then()
   .catch((error) => console.error(error));
-Pingpong.create({ id: 1, count: 0 }).catch((error) => console.error(error));
+Pingpong.findOrCreate({
+  where: { id: 1 },
+  defaults: { id: 1, count: 0 },
+}).catch((error) => console.error(error));

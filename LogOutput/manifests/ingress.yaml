@@ -7,17 +7,17 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /status
             pathType: Prefix
             backend:
               service:
                 name: log-output-svc
                 port:
-                  number: 4001
+                  number: 80
           - path: /pingpong
             pathType: Prefix
             backend:
               service:
-                name: pingpong-svc
+                name: pingpong-service
                 port:
-                  number: 4001
+                  number: 80
