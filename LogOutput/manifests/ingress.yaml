@@ -3,11 +3,13 @@ kind: Ingress
 metadata:
   name: log-output-ingress
   namespace: log-output
+  annotations:
+    kubernetes.io/ingress.class: gce
 spec:
   rules:
     - http:
         paths:
-          - path: /status
+          - path: /
             pathType: Prefix
             backend:
               service:

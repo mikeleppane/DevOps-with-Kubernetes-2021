@@ -17,6 +17,8 @@ spec:
         - name: logwatcher
           image: mikkolep/logwatcher:v3
           imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
           env:
             - name: MESSAGE
               valueFrom:

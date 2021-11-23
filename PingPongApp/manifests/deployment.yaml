@@ -17,6 +17,8 @@ spec:
         - name: pingpong
           image: mikkolep/pingpong:v1
           imagePullPolicy: Always
+          ports:
+            - containerPort: 6000
           envFrom:
             - configMapRef:
                 name: postgres-db-config
