@@ -4,10 +4,10 @@ metadata:
   name: todoapp-frontend-svc
   namespace: todoapp
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app-frontend: todoapp-frontend
   ports:
-    - port: 3001
+    - port: 80
       protocol: TCP
       targetPort: 3000

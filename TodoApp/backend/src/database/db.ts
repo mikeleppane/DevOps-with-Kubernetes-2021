@@ -5,7 +5,7 @@ export const sequelize = new Sequelize(
   process.env.POSTGRES_USER || "postgres",
   process.env.POSTGRES_PASSWORD,
   {
-    host: "postgres-db-svc.log-output",
+    host: "postgres-db-svc.todoapp",
     dialect: "postgres",
   }
 );

@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - manifests/deployment-backend.yaml
+  - manifests/deployment-frontend.yaml
+  - manifests/secret.yaml
+  - manifests/postgresql-service.yaml
+  - manifests/postgresql-configmap.yaml
+  - manifests/postgresql.yaml
+images:
+  - name: todoapp/backend
+    newName: mikkolep/todoapp-backend:v1
+  - name: todoapp/frontend
+    newName: mikkolep/todoapp-frontend:v1

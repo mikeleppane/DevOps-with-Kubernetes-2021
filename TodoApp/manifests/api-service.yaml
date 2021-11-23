@@ -4,7 +4,7 @@ metadata:
   name: todoapp-backend-service
   namespace: todoapp
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app-backend: todoapp-backend
   ports:

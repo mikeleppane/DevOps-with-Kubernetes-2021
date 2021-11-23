@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: todoapp-ingress
   namespace: todoapp
+  annotations:
+    kubernetes.io/ingress.class: gce
 spec:
   rules:
     - http:
@@ -13,11 +15,11 @@ spec:
               service:
                 name: todoapp-frontend-svc
                 port:
-                  number: 3001
+                  number: 80
           - path: /todos
             pathType: Prefix
             backend:
               service:
-                name: todoapp-svc
+                name: todoapp-backend-service
                 port:
-                  number: 5001
+                  number: 80

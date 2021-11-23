@@ -3,7 +3,7 @@ import { create } from "apisauce";
 
 const TodoCharacterLimit = 140;
 
-const baseAPIURL = "http://localhost:8081";
+const baseAPIURL = "http://todoapp-backend-service.todoapp";
 const api = create({
   baseURL: baseAPIURL,
   timeout: 5000,

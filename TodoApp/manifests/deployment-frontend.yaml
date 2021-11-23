@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todoapp-frontend-dep
+  name: todoapp-frontend
   namespace: todoapp
 spec:
   replicas: 1
@@ -17,3 +17,5 @@ spec:
         - name: todoapp-frontend
           image: mikkolep/todoapp-frontend:v1
           imagePullPolicy: Always
+          ports:
+            - containerPort: 3000

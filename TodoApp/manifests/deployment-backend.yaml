@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todoapp-backend-dep
+  name: todoapp-backend
   namespace: todoapp
 spec:
   replicas: 1
@@ -17,6 +17,8 @@ spec:
         - name: todoapp-backend
           image: mikkolep/todoapp-backend:v1
           imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
           envFrom:
             - configMapRef:
                 name: postgres-db-config
