@@ -17,5 +17,9 @@ spec:
         - name: todoapp-frontend
           image: mikkolep/todoapp-frontend:v1
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "1000Mi"
           ports:
             - containerPort: 3000

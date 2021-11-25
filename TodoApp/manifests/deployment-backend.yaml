@@ -17,6 +17,10 @@ spec:
         - name: todoapp-backend
           image: mikkolep/todoapp-backend:v1
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "200Mi"
           ports:
             - containerPort: 5000
           envFrom:

@@ -18,6 +18,10 @@ spec:
       containers:
         - name: postgresql-db
           image: postgres:latest
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "100Mi"
           envFrom:
             - configMapRef:
                 name: postgres-db-config
