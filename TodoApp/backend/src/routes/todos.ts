@@ -28,7 +28,7 @@ todoRouter.post("/", async (req, res) => {
       console.log(
         `Todo created successfully: ${JSON.stringify(createdTodo.toJSON())}`
       );
-      return res.status(200).json(todo);
+      return res.status(200).json(createdTodo);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);

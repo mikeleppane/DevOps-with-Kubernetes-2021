@@ -3,16 +3,22 @@ import { create } from "apisauce";
 
 const TodoCharacterLimit = 140;
 
-const baseAPIURL = "http://todoapp-backend-service.todoapp";
+const baseAPIURL = "http://34.107.248.48";
 const api = create({
   baseURL: baseAPIURL,
   timeout: 5000,
   headers: { "Access-Control-Allow-Origin": "*" },
 });
 
+interface ITodoProps {
+  id: number;
+  done: boolean;
+  text: string;
+}
+
 function App() {
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState<{ id: string; text: string }[]>([]);
+  const [todos, setTodos] = useState<ITodoProps[]>([]);
 
   const handleTodoSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -20,8 +26,8 @@ function App() {
       .post("/todos", { text: todo })
       .then((response) => {
         console.log(response.data);
-        const data = response.data as { id: string; text: string };
-        if (data && "id" in data && "text" in data) {
+        const data = response.data as ITodoProps;
+        if (data && "done" in data && "text" in data) {
           setTodos([...todos, data]);
         }
       })
