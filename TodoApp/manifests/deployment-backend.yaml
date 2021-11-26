@@ -1,13 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: todoapp-backend
   namespace: todoapp
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app-backend: todoapp-backend
+  strategy:
+    canary:
+      steps:
+        - setWeight: 50
+        - analysis:
+            templates:
+              - templateName: cpu-rate
   template:
     metadata:
       labels:
@@ -20,6 +27,12 @@ spec:
           readinessProbe:
             initialDelaySeconds: 15
             periodSeconds: 30
+            httpGet:
+              path: /healthz
+              port: 5000
+          livenessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 60
             httpGet:
               path: /healthz
               port: 5000

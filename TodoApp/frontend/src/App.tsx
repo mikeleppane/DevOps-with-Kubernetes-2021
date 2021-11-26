@@ -3,7 +3,7 @@ import { create } from "apisauce";
 
 const TodoCharacterLimit = 140;
 
-const baseAPIURL = "http://34.107.248.48";
+const baseAPIURL = "http://localhost:8081";
 const api = create({
   baseURL: baseAPIURL,
   timeout: 5000,
