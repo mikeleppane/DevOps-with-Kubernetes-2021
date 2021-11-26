@@ -14,10 +14,10 @@ export const connectToDatabase = async () => {
   try {
     await sequelize.authenticate();
     console.log("database connected");
+    return { ok: true };
   } catch (err) {
     console.log("connecting database failed");
-    return process.exit(1);
   }
 
-  return null;
+  return { ok: false };
 };

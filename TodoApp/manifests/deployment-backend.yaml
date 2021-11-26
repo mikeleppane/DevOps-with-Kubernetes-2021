@@ -17,6 +17,12 @@ spec:
         - name: todoapp-backend
           image: mikkolep/todoapp-backend:v1
           imagePullPolicy: Always
+          readinessProbe:
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            httpGet:
+              path: /healthz
+              port: 5000
           resources:
             limits:
               cpu: "150m"
