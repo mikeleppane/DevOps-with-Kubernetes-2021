@@ -41,4 +41,62 @@ todoRouter.post("/", async (req, res) => {
   });
 });
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+todoRouter.delete("/:id", async (req, res) => {
+  try {
+    const todoToBeDeleted = await Todo.findByPk(req.params.id);
+    if (todoToBeDeleted) {
+      await todoToBeDeleted.destroy();
+      console.log(
+        `Todo deleted successfully: ${JSON.stringify(todoToBeDeleted.toJSON())}`
+      );
+      return res.status(204).end();
+    } else {
+      return res.status(401).json({ error: "Invalid id" });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return res.status(401).json({ error: `Invalid id: ${error.message}` });
+    }
+    console.error(error);
+    return res.status(401).json({ error: `Unknown error occurred: ${error}` });
+  }
+});
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+todoRouter.put("/:id", async (req, res) => {
+  try {
+    const todoToBeUpdated = await Todo.findByPk(req.params.id);
+    if (todoToBeUpdated) {
+      const body = req.body as { text: string; done: boolean };
+      if (!body.text && !body.done) {
+        return res.status(400).json({
+          error: "text and done fields are missing",
+        });
+      }
+      if (body.text) {
+        todoToBeUpdated.text = body.text;
+      }
+      if (body.done) {
+        todoToBeUpdated.done = body.done;
+      }
+      await todoToBeUpdated.save();
+      console.log(
+        `Todo updated successfully: ${JSON.stringify(todoToBeUpdated.toJSON())}`
+      );
+      return res.status(201).end();
+    } else {
+      return res.status(401).json({ error: "Invalid id" });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return res.status(401).json({ error: `${error.message}` });
+    }
+    console.error(error);
+    return res.status(401).json({ error: `Unknown error occurred: ${error}` });
+  }
+});
+
 export default todoRouter;
