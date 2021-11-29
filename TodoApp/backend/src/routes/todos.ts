@@ -1,7 +1,9 @@
 import express from "express";
 import { Todo } from "../database/models/todo";
+import { NatsService } from "../services/nats";
 
 const todoRouter = express.Router();
+const natsService = new NatsService();
 
 const isTodoTextValid = (text: string) => {
   return text.length < 141;
@@ -10,7 +12,7 @@ const isTodoTextValid = (text: string) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 todoRouter.get("/", async (_req, res) => {
   const todos = await Todo.findAll();
-  console.log(todos.map((t) => JSON.stringify(t.toJSON())));
+  console.log(todos.map((t) => JSON.stringify(t.toJSON(), null, 4)));
   return res.status(200).json(todos);
 });
 
@@ -26,7 +28,19 @@ todoRouter.post("/", async (req, res) => {
     try {
       const createdTodo = await Todo.create(todo);
       console.log(
-        `Todo created successfully: ${JSON.stringify(createdTodo.toJSON())}`
+        `Todo created successfully:\n ${JSON.stringify(
+          createdTodo.toJSON(),
+          null,
+          4
+        )}`
+      );
+      natsService.publish(
+        "TODO",
+        `Todo created successfully:\n ${JSON.stringify(
+          createdTodo.toJSON(),
+          null,
+          4
+        )}`
       );
       return res.status(200).json(createdTodo);
     } catch (error) {
@@ -48,7 +62,11 @@ todoRouter.delete("/:id", async (req, res) => {
     if (todoToBeDeleted) {
       await todoToBeDeleted.destroy();
       console.log(
-        `Todo deleted successfully: ${JSON.stringify(todoToBeDeleted.toJSON())}`
+        `Todo deleted successfully: ${JSON.stringify(
+          todoToBeDeleted.toJSON(),
+          null,
+          4
+        )}`
       );
       return res.status(204).end();
     } else {
@@ -83,7 +101,19 @@ todoRouter.put("/:id", async (req, res) => {
       }
       await todoToBeUpdated.save();
       console.log(
-        `Todo updated successfully: ${JSON.stringify(todoToBeUpdated.toJSON())}`
+        `Todo updated successfully:\n ${JSON.stringify(
+          todoToBeUpdated.toJSON(),
+          null,
+          4
+        )}`
+      );
+      natsService.publish(
+        "TODO",
+        `Todo updated successfully:\n ${JSON.stringify(
+          todoToBeUpdated.toJSON(),
+          null,
+          4
+        )}`
       );
       return res.status(201).end();
     } else {

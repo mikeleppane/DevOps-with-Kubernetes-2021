@@ -31,6 +31,4 @@ Postgres but never succeeded to connect to the database
 
 ### Exercise 4.06: Project v2.0
 
-<figure class="video_container">
-  <iframe src="https://drive.google.com/file/d/1VK4w7YXN4H2daKbeaAcJCKL7fRbtg_CF/view?usp=sharing" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+[Link to video](https://drive.google.com/file/d/1VK4w7YXN4H2daKbeaAcJCKL7fRbtg_CF/view?usp=sharing)
