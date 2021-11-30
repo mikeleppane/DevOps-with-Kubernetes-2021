@@ -1,19 +1,25 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - postgresql.yaml
-  - postgresql-configmap.yaml
-  - postgresql-service.yaml
-  - secret.yaml
-  - analysistemplate.yaml
-  - api-service.yaml
-  - deployment-backend.yaml
-  - service-frontend.yaml
-  - ingress.yaml
-  - deployment-frontend.yaml
-  - deployment-broadcaster.yaml
-  - telegram-secret.enc.yaml
+- postgresql.yaml
+- postgresql-configmap.yaml
+- postgresql-service.yaml
+- secret.yaml
+- analysistemplate.yaml
+- api-service.yaml
+- deployment-backend.yaml
+- service-frontend.yaml
+- ingress.yaml
+- deployment-frontend.yaml
+- deployment-broadcaster.yaml
+- telegram-secret.enc.yaml
 images:
-  - name: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
-    newName: mikkolep/todoapp-backend
-    newTag: 7144443b61ac1f852cc88eb233cead2ed20bd993
+- name: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
+  newName: mikkolep/todoapp-backend
+  newTag: cad3219948eabd79e50dbb394bba01d8fcad2476
+- name: TODOAPP_BROADCASTER_IMAGE_PLACEHOLDER
+  newName: mikkolep/todoapp-broadcaster
+  newTag: cad3219948eabd79e50dbb394bba01d8fcad2476
+- name: TODOAPP_FRONTEND_IMAGE_PLACEHOLDER
+  newName: mikkolep/todoapp-frontend
+  newTag: cad3219948eabd79e50dbb394bba01d8fcad2476
