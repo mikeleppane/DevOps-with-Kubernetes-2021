@@ -13,5 +13,7 @@ resources:
   - deployment-frontend.yaml
   - deployment-broadcaster.yaml
   - telegram-secret.enc.yaml
-
-
+images:
+  - name: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
+    newName: mikkolep/todoapp-backend
+    newTag: 7144443b61ac1f852cc88eb233cead2ed20bd993
