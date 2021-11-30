@@ -50,6 +50,6 @@ jobs:
       - uses: EndBug/add-and-commit@v7
         with:
           add: 'TodoApp/manifests/kustomization.yaml'
-          message: New version release for gitops-app ${{ github.sha }}
+          message: New version release for gitops-app ${{ github.sha }} available
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
