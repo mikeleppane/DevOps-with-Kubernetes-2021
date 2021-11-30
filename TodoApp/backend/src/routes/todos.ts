@@ -1,9 +1,9 @@
 import express from "express";
 import { Todo } from "../database/models/todo";
-import { NatsService } from "../services/nats";
+import { NatsPublisher } from "../services/nats";
 
 const todoRouter = express.Router();
-const natsService = new NatsService();
+const natsPublisher = new NatsPublisher();
 
 const isTodoTextValid = (text: string) => {
   return text.length < 141;
@@ -34,7 +34,7 @@ todoRouter.post("/", async (req, res) => {
           4
         )}`
       );
-      natsService.publish(
+      natsPublisher.publish(
         "TODO",
         `Todo created successfully:\n ${JSON.stringify(
           createdTodo.toJSON(),
@@ -107,7 +107,7 @@ todoRouter.put("/:id", async (req, res) => {
           4
         )}`
       );
-      natsService.publish(
+      natsPublisher.publish(
         "TODO",
         `Todo updated successfully:\n ${JSON.stringify(
           todoToBeUpdated.toJSON(),

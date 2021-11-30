@@ -2,18 +2,18 @@ import express = require("express");
 import http from "http";
 import { setupRoutes } from "./startup/routes";
 import { connectToDatabase } from "./database/db";
-import { NatsService } from "./services/nats";
+import { NatsPublisher } from "./services/nats";
 
 const port = process.env.PORT || 5000;
 
 const app = express();
-const natsService = new NatsService();
+const natsPublisher = new NatsPublisher();
 setupRoutes(app);
 const server = http.createServer(app);
 
 const start = async () => {
   await connectToDatabase();
-  await natsService.connect();
+  await natsPublisher.connect();
 };
 
 start()
