@@ -8,3 +8,11 @@ resources:
   - analysistemplate.yaml
   - api-service.yaml
   - deployment-backend.yaml
+  - service-frontend.yaml
+  - ingress.yaml
+  - deployment-frontend.yaml
+  - deployment-broadcaster.yaml
+images:
+  - name: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
+    newName: mikkolep/todoapp-backend
+    newTag: e944ddb5abd92cad3bc49effd62b0a9e69f71c78

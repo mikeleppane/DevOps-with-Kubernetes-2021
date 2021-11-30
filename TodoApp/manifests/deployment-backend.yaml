@@ -22,8 +22,7 @@ spec:
     spec:
       containers:
         - name: todoapp-backend
-          image: mikkolep/todoapp-backend:v1
-          imagePullPolicy: Always
+          image: TODOAPP_BACKEND_IMAGE_PLACEHOLDER  #mikkolep/todoapp-backend:v1
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30
