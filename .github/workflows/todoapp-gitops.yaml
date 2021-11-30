@@ -44,7 +44,7 @@ jobs:
       - name: Update yamls
         working-directory: TodoApp/manifests
         run: |-
-          kustomize edit set image IMAGE_PLACEHOLDER=mikkolep/todoapp-backend:${{ github.sha }}
+          kustomize edit set image TODOAPP_BACKEND_IMAGE_PLACEHOLDER=mikkolep/todoapp-backend:${{ github.sha }}
 
       # Commit and push
       - uses: EndBug/add-and-commit@v7
