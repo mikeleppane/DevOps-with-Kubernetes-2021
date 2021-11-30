@@ -8,8 +8,3 @@ resources:
   - analysistemplate.yaml
   - api-service.yaml
   - deployment-backend.yaml
-  - #images:
-    #  - name: todoapp/backend
-    #    newName: mikkolep/todoapp-backend:v1
-  #  - name: todoapp/frontend
-#    newName: mikkolep/todoapp-frontend:v1
