@@ -22,8 +22,7 @@ spec:
     spec:
       containers:
         - name: todoapp-broadcaster
-          image: mikkolep/todoapp-broadcaster:v1
-          imagePullPolicy: Always
+          image: TODOAPP_BROADCASTER_IMAGE_PLACEHOLDER
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30

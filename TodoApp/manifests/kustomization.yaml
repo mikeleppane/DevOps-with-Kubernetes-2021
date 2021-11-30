@@ -12,5 +12,6 @@ resources:
   - ingress.yaml
   - deployment-frontend.yaml
   - deployment-broadcaster.yaml
+  - telegram-secret.enc.yaml
 
 
