@@ -1,0 +1,7 @@
+apiVersion: stable.dwk/v1
+kind: DummySite
+metadata:
+  name: adventofcode
+spec:
+  website_url: https://adventofcode.com/
+  image: mikkolep/dummysite-app:v3
