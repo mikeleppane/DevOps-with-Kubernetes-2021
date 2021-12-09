@@ -3,7 +3,7 @@ import http from "http";
 import { setupRoutes } from "./startup/routes";
 import { connectToDatabase } from "./utils/db";
 
-const port = process.env.PORT || 6000;
+const port = process.env.PINGPONG_PORT || 6000;
 const app = express();
 setupRoutes(app);
 const server = http.createServer(app);

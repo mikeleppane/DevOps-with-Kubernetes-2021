@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pingpong
+  namespace: log-output
+spec:
+  template:
+    metadata:
+      name: pingpong-dwk
+    spec:
+      containers:
+        - image: mikkolep/pingpong:v2
+          envFrom:
+            - configMapRef:
+                name: postgres-db-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: POSTGRES_PASSWORD
+            - name: PINGPONG_PORT
+              value: "8080"
