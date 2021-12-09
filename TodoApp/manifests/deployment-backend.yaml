@@ -1,20 +1,13 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: todoapp-backend
   namespace: todoapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app-backend: todoapp-backend
-  strategy:
-    canary:
-      steps:
-        - setWeight: 50
-        - analysis:
-            templates:
-              - templateName: cpu-rate
   template:
     metadata:
       labels:
@@ -22,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todoapp-backend
-          image: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
+          image: mikkolep/todoapp-backend:cad3219948eabd79e50dbb394bba01d8fcad2476
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30

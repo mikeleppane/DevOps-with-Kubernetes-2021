@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-broadcaster
+  namespace: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-broadcaster: todoapp-broadcaster
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app-broadcaster: todoapp-broadcaster
+    spec:
+      containers:
+      - env:
+        - name: TELEGRAM_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: TELEGRAM_TOKEN
+              name: telegram-token
+        - name: TELEGRAM_CHAT_ID
+          value: "2135565126"
+        - name: NATS_URL
+          value: nats://my-nats.default:4222
+        image: mikkolep/todoapp-broadcaster:cad3219948eabd79e50dbb394bba01d8fcad2476
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 6000
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        name: todoapp-broadcaster
+        ports:
+        - containerPort: 6000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 6000
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: 150m
+            memory: 200Mi
+---

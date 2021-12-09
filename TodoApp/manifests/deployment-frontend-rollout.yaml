@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: todoapp-frontend
   namespace: todoapp
@@ -8,6 +8,13 @@ spec:
   selector:
     matchLabels:
       app-frontend: todoapp-frontend
+  strategy:
+    canary:
+      steps:
+        - setWeight: 100
+        - analysis:
+            templates:
+              - templateName: cpu-rate
   template:
     metadata:
       labels:
@@ -15,7 +22,7 @@ spec:
     spec:
       containers:
         - name: todoapp-frontend
-          image: mikkolep/todoapp-frontend:cad3219948eabd79e50dbb394bba01d8fcad2476
+          image: TODOAPP_FRONTEND_IMAGE_PLACEHOLDER
           resources:
             limits:
               cpu: "250m"

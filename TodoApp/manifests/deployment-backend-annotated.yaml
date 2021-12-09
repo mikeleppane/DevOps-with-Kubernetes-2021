@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-backend
+  namespace: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-backend: todoapp-backend
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app-backend: todoapp-backend
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: db-password
+        - name: NATS_URL
+          value: nats://my-nats.default:4222
+        envFrom:
+        - configMapRef:
+            name: postgres-db-config
+        image: mikkolep/todoapp-backend:cad3219948eabd79e50dbb394bba01d8fcad2476
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 60
+        name: todoapp-backend
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: 150m
+            memory: 200Mi
+---

@@ -1,46 +1,54 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: todoapp-broadcaster
+  name: todoapp-backend
   namespace: todoapp
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app-broadcaster: todoapp-broadcaster
+      app-backend: todoapp-backend
+  strategy:
+    canary:
+      steps:
+        - setWeight: 50
+        - analysis:
+            templates:
+              - templateName: cpu-rate
   template:
     metadata:
       labels:
-        app-broadcaster: todoapp-broadcaster
+        app-backend: todoapp-backend
     spec:
       containers:
-        - name: todoapp-broadcaster
-          image: mikkolep/todoapp-broadcaster:cad3219948eabd79e50dbb394bba01d8fcad2476
+        - name: todoapp-backend
+          image: TODOAPP_BACKEND_IMAGE_PLACEHOLDER
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30
             httpGet:
               path: /healthz
-              port: 6000
+              port: 5000
           livenessProbe:
             initialDelaySeconds: 10
             periodSeconds: 60
             httpGet:
               path: /healthz
-              port: 6000
+              port: 5000
           resources:
             limits:
               cpu: "150m"
               memory: "200Mi"
           ports:
-            - containerPort: 6000
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: postgres-db-config
           env:
-            - name: TELEGRAM_TOKEN
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: telegram-token
-                  key: TELEGRAM_TOKEN
-            - name: TELEGRAM_CHAT_ID
-              value: "2135565126"
+                  name: db-password
+                  key: POSTGRES_PASSWORD
             - name: NATS_URL
               value: "nats://my-nats.default:4222"

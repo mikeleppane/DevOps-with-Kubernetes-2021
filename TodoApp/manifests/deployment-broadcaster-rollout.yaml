@@ -1,13 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: todoapp-broadcaster
   namespace: todoapp
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app-broadcaster: todoapp-broadcaster
+  strategy:
+    canary:
+      steps:
+        - setWeight: 50
+        - analysis:
+            templates:
+              - templateName: cpu-rate
   template:
     metadata:
       labels:
@@ -15,7 +22,7 @@ spec:
     spec:
       containers:
         - name: todoapp-broadcaster
-          image: mikkolep/todoapp-broadcaster:cad3219948eabd79e50dbb394bba01d8fcad2476
+          image: TODOAPP_BROADCASTER_IMAGE_PLACEHOLDER
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30

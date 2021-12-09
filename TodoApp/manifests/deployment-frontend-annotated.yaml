@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-frontend
+  namespace: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-frontend: todoapp-frontend
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app-frontend: todoapp-frontend
+    spec:
+      containers:
+      - image: mikkolep/todoapp-frontend:cad3219948eabd79e50dbb394bba01d8fcad2476
+        name: todoapp-frontend
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: 250m
+            memory: 1000Mi
+---
